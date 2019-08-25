@@ -9,6 +9,17 @@ void stepForward() {
    motorRight.run(RELEASE);  
 }
 
+void halt() {
+   motorLeft.run(RELEASE);
+   motorRight.run(RELEASE);
+}
+
+void start() {
+   motorLeft.run(FORWARD);
+   motorRight.run(FORWARD);
+}
+
+
 // turns left
 void turnLeft() {  
    motorLeft.setSpeed(turnSpeed);
@@ -35,19 +46,20 @@ void turnRight() {
    motorRight.setSpeed(forwardSpeed);
 }
 
-void turnWhereIsMoreSpace() {    
-  Stepper1.step(8, BACKWARD, MICROSTEP);
+void turnWhereIsMoreSpace() {
+  int headTurnSteps = 7; 
+  Stepper1.step(headTurnSteps, BACKWARD, MICROSTEP);
   int distanceRight = getDistance();  
   Serial.print("Distance right: ");
   Serial.println(distanceRight);
   delay(1000);
   
-  Stepper1.step(16, FORWARD, MICROSTEP);
+  Stepper1.step(headTurnSteps*2, FORWARD, MICROSTEP);
   int distanceLeft = getDistance();  
   Serial.print("Distance left: ");
   Serial.println(distanceLeft);  
   delay(1000);
-  Stepper1.step(8, BACKWARD, MICROSTEP);
+  Stepper1.step(headTurnSteps, BACKWARD, MICROSTEP);
   delay(1000);
   if (distanceRight > distanceLeft) {
     turnRight();
@@ -57,8 +69,8 @@ void turnWhereIsMoreSpace() {
 }
 
 int getDistance() {  
-  delay(100);
   long duration;
+  delay(50);
   
   // Clears the trigPin
   digitalWrite(trigPin, LOW);

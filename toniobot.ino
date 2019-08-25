@@ -1,3 +1,4 @@
+
 #include <AFMotor.h>
 #include <LiquidCrystal_I2C.h> // includes the LiquidCrystal Library 
 #include <Wire.h>
@@ -9,19 +10,20 @@ AF_DCMotor motorRight(3, MOTOR34_1KHZ); // create motor #2, using M2 output, set
 
 
 const int turnSpeed = 240;
-const int forwardSpeed = 220;
+const int forwardSpeed = 120;
 const int trigPin = A2;
 const int echoPin = A3;
 
-long duration;
 int distance;
+bool forward;
 
-void setup() {  
+void setup() {
   Stepper1.setSpeed(50);
   motorLeft.setSpeed(forwardSpeed);     // set the speed to 200/255
   motorRight.setSpeed(forwardSpeed);     // set the speed to 200/255
+  forward = false;
   
-  displayIntro();
+ displayIntro();
   
 // delay(6000000); // sleeps for 100 minutes, comment this out ot make the robot run
  
@@ -33,11 +35,14 @@ void setup() {
 
 void loop() {  
   distance = getDistance();  
-  if (distance > 30) {
-    stepForward();    
-  } else {
-    turnWhereIsMoreSpace();    
+  if (distance < 30) {
+      forward = false;
+      halt();
+      turnWhereIsMoreSpace();
+  } else { 
+    if (!forward && distance >= 30) {
+      forward = true;
+      start();
+    }    
   }
-  
-  delay(2000);
 }
