@@ -13,6 +13,7 @@ const int turnSpeed = 240;
 const int forwardSpeed = 120;
 const int trigPin = A2;
 const int echoPin = A3;
+const int bumperPin = 2;
 
 int distance;
 bool forward;
@@ -34,6 +35,12 @@ void setup() {
 }
 
 void loop() {  
+  if (digitalRead(bumperPin) == LOW) {
+    forward = false;
+    halt();
+    stepBackwards();
+  } else {
+  
   distance = getDistance();  
   if (distance < 30) {
       forward = false;
@@ -44,5 +51,6 @@ void loop() {
       forward = true;
       start();
     }    
+  }
   }
 }

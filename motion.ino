@@ -1,9 +1,9 @@
 
 
 // runs forward for 1 second
-void stepForward() {  
-   motorLeft.run(FORWARD);  
-   motorRight.run(FORWARD);      // turn it on going forward
+void stepBackwards() {  
+   motorLeft.run(BACKWARD);  
+   motorRight.run(BACKWARD);      // turn it on going forward
    delay(500);
    motorLeft.run(RELEASE);
    motorRight.run(RELEASE);  
