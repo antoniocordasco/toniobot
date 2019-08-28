@@ -26,7 +26,7 @@ void turnLeft() {
    motorRight.setSpeed(turnSpeed);
    motorLeft.run(BACKWARD);  
    motorRight.run(FORWARD);      // turn it on going forward
-   delay(500);
+   delay(500 + random(100));
    motorLeft.run(RELEASE);
    motorRight.run(RELEASE);  
    motorLeft.setSpeed(forwardSpeed); 
@@ -39,7 +39,7 @@ void turnRight() {
    motorRight.setSpeed(turnSpeed);
    motorLeft.run(FORWARD);  
    motorRight.run(BACKWARD);      // turn it on going forward
-   delay(500);
+   delay(500 + random(100));
    motorLeft.run(RELEASE);
    motorRight.run(RELEASE); 
    motorLeft.setSpeed(forwardSpeed); 
